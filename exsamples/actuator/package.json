@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "prod": "export NODE_ENV=prod && nodemon ./src",
+    "dev": "export NODE_ENV=dev && nodemon ./src",
+    "local": "export NODE_ENV=local&& nodemon ./src",
+    "windev": "set NODE_ENV=dev&& nodemon ./src",
+    "winlocal": "set NODE_ENV=local&& nodemon ./src"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
+    "dotenv-json": "^1.0.0",
+    "moment-timezone": "^0.5.34",
+    "nodemon": "^2.0.16",
+    "socket.io-client": "^4.4.1"
+  }
+}

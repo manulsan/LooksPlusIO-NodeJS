@@ -1,66 +1,67 @@
-# atCloud
-By generalizing IoT devices, all devices are managed as a single unit object. Devices are managed with the same method, and the view widget is different according to the user's viewing method.
+# NodeJS SDKs
 
-## Live Demo : https://damosys.com:9000
----
-## Basic network
+This is a software development kit for device developers. It is a NodeJS sample code for developing devices that are integrated with the atcloud365.com platform. This sample demonstrates how to connect to the server and send data.
+
+## Live Demo : https://atcloud365.com
+
+## atCloud365.com Compositions
+
 <img src="./assets/img/main-1.png">
 
----
-## IoT Devices
+## Preparations
 
- Devices are defined in three types as follows. the following combination, one device have 10 10 pieces of information which can be gathered.
-### Gathering Devices  
-It gathers input data and publish to the platforms
-  ```
-  Input signal sensing( 0 or , max 10 inputs)    
-  Sensor input( max 10 sensors, ex> Temperature, Humidity, etc...)
-  ``` 
+ Before using sdks, Developers are required to register, and upon logging in, they should define the device's attributes and generate device's "serial number" that are used in SDK or mass production.
 
-### Output device
-It subscribe the commands from platform and issues event at the devices like Realy controller or signal controller
-```
-Output signal( Relay Control, max 10 inputs)
-```
-### GPS Tracker
-It gather GPS data and publish to platform and is used as assets tracking device
-```
-GPS data
-```
-### CCTV Streaming channel
-It is working based on out "Media-Server" that does streaming to somewhere. It is somehow different from above
+- Signup as Manufacture (https://atcloud365.com/mfg)
 
----
+## Examples
 
-## Device Data Protocol
-The device uploads data in a standardized format. The following syntax applies. It is designed to upload "DATA" and "STATUS OF DEVICE" <br>
-### Protocol Syntax
-- [number1,...,number-10], number can be "integer" and "float" type
-- It can be one data like [number] and also can be be two like [number,number], max 10 number can be applied 
-- [Arnuino Sample Cde Here](https://github.com/manulsan/atCloud/blob/main/sdks/arduino/esp8266/InputOutput/InputOutput.ino)
-- ex>
- ```js
-    void publishData(uint32_t now)
-    {
-        char szBuf[128];
-        sprintf(szBuf, "[%d,%d,%d,%d,%d,%d]",
-                _portMap[0].state, _portMap[1].state, _portMap[2].state,
-                _portMap[3].state, _portMap[4].state, _portMap[5].state);        
-        publish("dev-data", szBuf);    
- ```
+The README.md file provides instructions on how to use the source code for each individual example.
 
+### Sensor example
   
-### STATUS Syntax
-- Any string 
-- ex>
-```
-    publish("dev-data", "System is Ready");    
-```
+- The sensor example illustrates how to connect to a server and transmit data.
+- Upload only as one-wey communcation
 
-## Device Data And App View expression
-- Device has "Serial Number" only.
-- The data is defined at the platform by the user.( if not, default property is applied)
-- <bold> "Data Field"</bold> is one of device data expression and uer can define it name or properties
-- All information can be made with QR code ( commercial device only )
+### Actuator example
 
-<img src="./assets/img/menu-add-device.png">
+- The actuator example illustrates how to connect to a server and engage in two-way communication.
+
+## Files on Example
+
+- .env
+
+  ```json
+  SN="xxxxxxxxxxyyyyyyyyyy1"    // device serial number that is generated at 
+  pubInterval= 5000             // data upload interval
+  ```
+
+- .env.dev
+
+  ```json
+  socketIo = `{
+    "url":"https://atcloud365.com",   // socketIo server URL
+    "path":"/api/dev/io"              // socketIo path 
+  }`
+  ```
+
+
+## How to use SDK
+
+1. Install dependency module
+    ```sh
+    yarn  # or npm install
+    ```
+
+2. Edit ".env" file for device-serial-number
+
+    ```sh
+    SN="xxxxxxxxxxyyyyyyyyyy1"    # replace your device-serial-number
+    ```
+
+3. Run
+
+    ```sh
+    yarn atwindows    # run on windows at command prompt
+    yarn atlinux      # run on linux  at shell
+    ```
