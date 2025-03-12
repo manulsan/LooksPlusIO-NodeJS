@@ -31,17 +31,17 @@ The README.md file provides instructions on how to use the source code for each 
 
 - .env
 
-  ```json
-  SN="xxxxxxxxxxyyyyyyyyyy1"    // device serial number that is generated at 
-  pubInterval= 5000             // data upload interval
+  ```env
+  SN="xxxxxxxxxxyyyyyyyyyy1"    # device serial number that is generated at 
+  pubInterval= 5000             # data upload interval
   ```
 
 - .env.dev
 
-  ```json
+  ```env
   socketIo = `{
-    "url":"https://atcloud365.com",   // socketIo server URL
-    "path":"/api/dev/io"              // socketIo path 
+    "url":"https://atcloud365.com",   # socketIo server URL
+    "path":"/api/dev/io"              # socketIo path 
   }`
   ```
 
