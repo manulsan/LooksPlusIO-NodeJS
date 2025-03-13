@@ -1,25 +1,26 @@
-Socket.IO Client
-===
+# NodeJS Device Example
 
-# Usage
-1. dependency module 설치
+## Usage
+
+### 1. Install dependency module
+
 ```sh
 yarn    # or npm install
 ```
-2. `.env` 파일 설정을 실행 환경에 맞게 편집
-```env
-# Socket.IO server url
-SERVER=http://localhost:3000
-# device id
-DID=D0001
-```
-3. run
+
+### 2. `.env`
+
 ```sh
-yarn start  # or npm start
+# replace your device-serial-number
+SN="xxxxxxxxxxyyyyyyyyyy1" 
+
+# data upload interval
+pubInterval= 10000           
 ```
 
-4. debug
-- Visual Studio Code에서 `Visual Studio Keymap` extension 설치 (option)
-- 원하는 코드 라인에서 breakpoint 설정: `F9`
-- run to breakpoint: `F5`
+### 3. run
 
+```sh
+yarn atwindows    # run on windows at command prompt
+yarn atlinux      # run on linux at shell
+```

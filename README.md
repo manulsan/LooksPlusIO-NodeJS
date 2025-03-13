@@ -56,12 +56,36 @@ The README.md file provides instructions on how to use the source code for each 
 2. Edit ".env" file for device-serial-number
 
     ```sh
-    SN="xxxxxxxxxxyyyyyyyyyy1"    # replace your device-serial-number
+    SN="xxxxxxxxxxyyyyyyyyyy1" # replace your device-serial-number
+    pubInterval= 10000           # data upload interval
     ```
 
 3. Run
 
     ```sh
     yarn atwindows    # run on windows at command prompt
-    yarn atlinux      # run on linux  at shell
+    yarn atlinux      # run on linux at shell
     ```
+
+## Defining device and its properties
+
+- All developers define development products(as device) and their attributes at [atcloud365/mfg](https://atcloud365.com/mfg)
+- Signup required
+
+### Device Definition
+
+![Defining device and its properties](./assets/img/mfg-web1.png)
+
+### Device serial # Generations
+
+![Generating Devices' Serial No.](./assets/img/mfg-web2.png)
+
+## Testing at atcloud365
+
+- Device can be tested at [atcloud365/mfg](https://atcloud365.com) using it's serian #
+- Signup required
+
+### Registering Device
+
+![Registering device.](./assets/img/user-web-register-device.png)
+![Registering device.](./assets/img/user-web-register-device-dlg.png)

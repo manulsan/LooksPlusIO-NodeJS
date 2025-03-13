@@ -4,11 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "prod": "export NODE_ENV=prod && nodemon ./src",
-    "dev": "export NODE_ENV=dev && nodemon ./src",
-    "local": "export NODE_ENV=local&& nodemon ./src",
-    "windev": "set NODE_ENV=dev&& nodemon ./src",
-    "winlocal": "set NODE_ENV=local&& nodemon ./src"
+    "atLinux": "export NODE_ENV=dev && nodemon ./src",    
+    "atwindows": "set NODE_ENV=dev&& nodemon ./src"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

@@ -1,70 +1,78 @@
 #!/usr/local/bin/node
-const util = require("./util.js");
-util.setEnv();
+
+const { setEnv, getRandom } = require("./util.js");
+setEnv();
+
+let _countOfInterval = 0;
+let _transportConnected = false;
+let _output_data = [0, 0, 0]; // if device has 3 sensors then array size will be 3
 
 const io = require("socket.io-client");
-const _socketIoCfg = JSON.parse(process.env.socketIo);
-const socket = io(_socketIoCfg.url, {
-  path: _socketIoCfg.path,
-  query: {
-    sn: process.env.SN,
-  },
+const _configSocketIo = JSON.parse(process.env.socketIo);
+const socket = io(_configSocketIo.url, {
+  path: _configSocketIo.path,
+  query: { sn: process.env.SN },
   transport: ["websocket"],
 });
-//------------------------------------------------------
 
-let _modular = 0;
-let _transportConnected = false;
-var _output_data = [0, 0, 0];
-function publish(sock, event, payload) {
-  console.log(`pub: ${event}`, payload);
-  if (event === "dev-data") _output_data = payload;
-  socket.emit(
-    event,
-    {
-      content: payload,
-      createdAt: Date.now(),
-    },
-    (res) => {
-      console.log("publish response=", res);
-    }
-  );
+//------------------------------------------------------
+// name : publish
+async function publish(topic, data) {
+  try {
+    const payload = {
+      content: data,
+      createdAt: Date.now(), // can be removed, if then use server timestamp
+    };
+    await socket.emit(topic, payload);
+    if (topic === "dev-data") _output_data = data; // update local variable
+    console.log(`pub: ${topic}`, payload);
+  } catch (error) {
+    console.error("publish error=", error);
+  }
 }
 
+//------------------------------------------------------
+// name : socket functions
 socket
   .on("connect", () => {
-    console.log("______event connect______");
+    console.log("______ socketIo connected ______");
     socket["timerId"] = setInterval(() => {
       if (_transportConnected) {
-        if (_modular++ % 5) publish(socket, "dev-status", "System Stable");
+        if (_countOfInterval++ % 10 === 9)
+          publish("dev-status", "System Stable"); // upload status to server, can be removed
 
-        publish(socket, "dev-data", [
-          parseFloat(util.getRandom(0, 1, 0)),
-          parseFloat(util.getRandom(0, 1, 0)),
-          parseFloat(util.getRandom(0, 1, 0)),
+        // upload data to server
+        publish("dev-data", [
+          getRandom(0, 100, 2),
+          getRandom(0, 100, 2),
+          getRandom(0, 100, 2),
         ]);
       }
     }, parseInt(process.env.pubInterval));
-    publish(socket, "dev-status", "Ready");
+    publish("dev-status", "Ready");
     _transportConnected = true;
   })
   .on("app-cmd", (payload) => {
     console.log("got app-cmd", JSON.stringify(payload));
     try {
       switch (payload.cmd) {
-        case "output":
-          _output_data[payload.content.field] = payload.content.value;
-          publish(socket, "dev-data", _output_data);
-          break;
-        case "output-all":
+        case "sync":
+          console.log("app-cmd: received sync cmd");
+          publish("dev-data", _output_data);
           break;
         case "reboot":
+          console.log("app-cmd: receive reboot cmd");
+          // if youe device support reboot then do reboot
           break;
-        case "sync":
-          publish(socket, "dev-data", _output_data);
+        case "output":
+          console.log("received output cmd, sensor does not support output");
+          break;
+        case "output-all":
+          console.log("received output-all sensor does not support output");
           break;
         default:
-          console.log("app-cmd  not supported cmd ");
+          console.log(`app-cmd :  not supported cmd ${payload.cmd}`);
+          break;
       }
     } catch (e) {
       console.log("err=", e);
@@ -79,7 +87,7 @@ socket
   .on("disconnect", (reason) => {
     console.log("______disconnected:", reason);
     _transportConnected = false;
-    // remove sockets
+
     if (socket["timerId"]) {
       clearInterval(socket.timerId);
       delete socket.timerId;
