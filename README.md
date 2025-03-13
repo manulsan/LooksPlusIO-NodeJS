@@ -67,23 +67,27 @@ The README.md file provides instructions on how to use the source code for each 
     yarn atlinux      # run on linux at shell
     ```
 
-## Defining device and its properties
+## Device Definition
 
-- All developers define development products(as device) and their attributes at [atcloud365/mfg](https://atcloud365.com/mfg)
-- Signup required
+- All developers define development products(as device) and its properties at [atcloud365/mfg](https://atcloud365.com/mfg)
+- Signup required("make your own account")
 
-### Device Definition
+### Device and Properties
 
+- Define device name and other stuffs
+  
 ![Defining device and its properties](./assets/img/mfg-web1.png)
 
 ### Device serial # Generations
 
+- Device Serial No. is generated and generated # can be used at device F/W
+  
 ![Generating Devices' Serial No.](./assets/img/mfg-web2.png)
 
-## Testing at atcloud365
+## Device Testing
 
-- Device can be tested at [atcloud365/mfg](https://atcloud365.com) using it's serian #
-- Signup required
+- Device can be tested at [atcloud365](https://atcloud365.com) using its serial #
+- - Signup required("make your own account, it is different from mfg account")
 
 ### Registering Device
 
