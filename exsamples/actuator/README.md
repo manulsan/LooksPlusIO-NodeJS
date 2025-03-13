@@ -1,4 +1,6 @@
-# NodeJS Device Example
+# NodeJS Actuator Example
+
+It is input device example.
 
 ## Usage
 

@@ -1,4 +1,6 @@
-# NodeJS Device Example
+# NodeJS Sensor Example
+
+It is input device example.
 
 ## Usage
 
